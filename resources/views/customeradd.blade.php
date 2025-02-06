@@ -56,7 +56,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="membership" class="col-form-label">Membership:</label>
-                            <select name="membership" class="form-control">
+                            <select id="membership" name="membership" class="form-control">
                                 <option value="monthly">Monthly</option>
                                 <option value="yearly">Yearly</option>
                             </select>
@@ -67,7 +67,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="permission" class="col-form-label">Permission:</label>
-                            <input name="permission" type="checkbox" value="allowed">
+                            <input name="permission" id="permission" type="checkbox" value="allowed">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -114,7 +114,7 @@
                 e.preventDefault();
                 var id = $('#id').val();
                 var formData = new FormData(this);
-                var url = id ? `/customerupdate/${id}` : "{{ route('customerstore') }}";
+                var url = id ? `customerupdate/${id}` : "{{ route('customerstore') }}";
                 $.ajax({
                     url: url,
                     type: "POST",
@@ -170,7 +170,7 @@
             $(document).on('click', '.editBtn', function () {
                 var id = $(this).data('id');
                 $.ajax({
-                    url: `/customeredit/${id}`,
+                    url: `customeredit/${id}`,
                     type: "GET",
                     success: function (response) {
                         $('#id').val(response.id);
@@ -179,9 +179,9 @@
                         $('#customerbmi').val(response.customerbmi);
                         $('#customercode').val(response.customercode);
                         $('#customerdate').val(response.customerdate);
-                        $('input[name="gender"][value="' + response.gender + '"]').prop('checked', true);
-                        $('select[name="membership"]').val(response.membership);
-                        $('input[name="permission"]').prop('checked', response.permission === 'allowed');
+                        $('#membership').val(response.membership);
+                        $('#gender').val(response.gender);
+                        $('#permission').val(response.permission);
                         $('#exampleModal').modal('show');
                     }
                 });
@@ -192,7 +192,7 @@
                 var id = $(this).data('id');
 
                 $.ajax({
-                    url: `/customerdelete/${id}`,
+                    url: `customerdelete/${id}`,
                     type: "delete",  // Using POST method
                     data: {  // Simulate DELETE request
                         _token: "{{ csrf_token() }}"  // Directly insert CSRF token
