@@ -193,13 +193,13 @@
 
                 $.ajax({
                     url: `customerdelete/${id}`,
-                    type: "delete",  // Using POST method
-                    data: {  // Simulate DELETE request
-                        _token: "{{ csrf_token() }}"  // Directly insert CSRF token
+                    type: "delete",  
+                    data: { 
+                        _token: "{{ csrf_token() }}"  
                     },
                     success: function (response) {
                         alert('Customer Deleted');
-                        fetchrecord();  // Refresh the records
+                        fetchrecord();  
                     },
                     error: function () {
                         alert('Delete operation failed!');
